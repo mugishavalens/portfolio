@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Download, ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import profileImg from '../assets/profile.jpg';
+import profileImg from '../assets/profile.png';
 
 const Hero = () => {
   const { t } = useTranslation();
