@@ -1,10 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Code2 as Github, UserRound as Linkedin, Send } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
   const { t } = useTranslation();
+  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState('idle');
+  const [feedback, setFeedback] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, message } = formState;
+
+    if (!name.trim() || !email.trim() || !message.trim()) {
+      setStatus('error');
+      setFeedback('Please fill in all fields before sending.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setStatus('error');
+      setFeedback('Please enter a valid email address.');
+      return;
+    }
+
+    setStatus('sending');
+    setFeedback('Sending message...');
+
+    setTimeout(() => {
+      setStatus('success');
+      setFeedback('Message sent successfully! I will get back to you soon.');
+      setFormState({ name: '', email: '', message: '' });
+    }, 800);
+  };
+
+  const handleChange = (field) => (e) => {
+    setFormState((prev) => ({ ...prev, [field]: e.target.value }));
+    if (status !== 'idle') {
+      setStatus('idle');
+      setFeedback('');
+    }
+  };
 
   return (
     <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8 bg-background">
@@ -53,7 +91,7 @@ const Contact = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             className="bg-cards p-10 rounded-[2rem] border border-white/5 shadow-2xl shadow-black/20 space-y-8"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-1 gap-8">
               <div className="space-y-2">
@@ -61,6 +99,8 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
+                  value={formState.name}
+                  onChange={handleChange('name')}
                   className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all placeholder:text-text/20"
                   placeholder="John Doe"
                 />
@@ -70,6 +110,8 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  value={formState.email}
+                  onChange={handleChange('email')}
                   className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all placeholder:text-text/20"
                   placeholder="john@example.com"
                 />
@@ -79,16 +121,23 @@ const Contact = () => {
                 <textarea
                   id="message"
                   rows="4"
+                  value={formState.message}
+                  onChange={handleChange('message')}
                   className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all resize-none placeholder:text-text/20"
                   placeholder="How can I help you?"
                 ></textarea>
               </div>
             </div>
+            {feedback && (
+              <p className={`text-sm ${status === 'success' ? 'text-emerald-500' : status === 'error' ? 'text-rose-500' : 'text-text/70'}`}>
+                {feedback}
+              </p>
+            )}
             <button
               type="submit"
               className="w-full py-5 bg-accent hover:bg-accent/90 text-background rounded-xl font-bold text-lg transition-all duration-300 shadow-lg shadow-accent/20 flex items-center justify-center gap-3 group"
             >
-              {t('contact.send')}
+              {status === 'sending' ? 'Sending...' : t('contact.send')}
               <Send size={22} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </button>
           </motion.form>

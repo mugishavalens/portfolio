@@ -12,23 +12,23 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.14),transparent_22%),radial-gradient(circle_at_bottom_left,rgba(56,189,248,0.08),transparent_20%)] pointer-events-none"></div>
       <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/90 to-transparent pointer-events-none"></div>
 
-      <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="space-y-10"
+          className="space-y-10 overflow-hidden"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium text-accent uppercase tracking-[0.24em] shadow-sm shadow-accent/10">
             {t('hero.available')}
           </div>
 
-          <div className="max-w-2xl space-y-8">
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight tracking-tight text-text">
+          <div className="max-w-xl md:max-w-lg space-y-8">
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-text clamp-text break-words">
               {t('hero.title')} <br />
               <span className="text-gradient">{t('hero.subtitle')}</span>
             </h1>
-            <p className="text-text/80 text-lg md:text-xl leading-relaxed max-w-xl">
+            <p className="text-text/80 text-base sm:text-lg md:text-base lg:text-lg leading-relaxed max-w-md md:max-w-sm clamp-desc">
               {t('hero.desc', { name: 'Valens Mugisha' })}
             </p>
           </div>

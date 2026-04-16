@@ -49,6 +49,56 @@ body {
   width: 100%;
 }
 
+/* Flexible font sizing for multilingual support */
+.clamp-text {
+  font-size: clamp(1.75rem, 3.5vw, 3.25rem);
+  line-height: 1.1;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+@media (min-width: 640px) {
+  .clamp-text {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+  }
+}
+
+@media (min-width: 768px) {
+  .clamp-text {
+    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .clamp-text {
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
+  }
+}
+
+.clamp-desc {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+
+@media (min-width: 768px) {
+  .clamp-desc {
+    font-size: clamp(1.125rem, 3vw, 1.25rem);
+  }
+}
+
+.clamp-about {
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+  line-height: 1.7;
+}
+
+@media (min-width: 640px) {
+  .clamp-about {
+    font-size: clamp(1.25rem, 3vw, 1.25rem);
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

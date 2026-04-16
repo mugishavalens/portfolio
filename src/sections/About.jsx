@@ -29,17 +29,17 @@ const About = () => {
             className="space-y-8"
           >
             <div className="space-y-6">
-              <p className="text-text/80 text-xl leading-relaxed">
+              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
                 {t('about.p1', { org: 'African University of Central Africa (AUCA)' })}
               </p>
-              <p className="text-text/80 text-xl leading-relaxed">
+              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
                 {t('about.p2', { 
                   clean: 'clean architecture', 
                   efficiency: 'algorithmic efficiency', 
                   a2sv: 'Africa To Silicon Valley (A2SV)' 
                 })}
               </p>
-              <p className="text-text/80 text-xl leading-relaxed">
+              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
                 {t('about.p3')}
               </p>
             </div>
