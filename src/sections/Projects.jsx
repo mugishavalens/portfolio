@@ -135,7 +135,7 @@ const Projects = () => {
       description: "Full-stack web application to manage and track job applications efficiently, with features for storing, retrieving and updating application data.",
       tech: ["PHP", "MySQL", "Web-Development"],
       github: "https://github.com/mugishavalens",
-      demo: "https://reliable-cuchufli-58014f.netlify.app/",
+      demo: "https://poetic-cassata-a21d35.netlify.app/",
       image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=600"
     },
     {
