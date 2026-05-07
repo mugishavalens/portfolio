@@ -169,6 +169,14 @@ const Projects = () => {
       github: "https://github.com/mugishavalens/simba-store.git",
       demo: "https://sunny-mandazi-1b2114.netlify.app/#/",
       image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "Kimchi Korean Restaurant",
+      description: "A vibrant restaurant website for a Korean dining experience, featuring a full menu showcase, elegant UI, and smooth navigation for an inviting online presence.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      github: "https://github.com/mugishavalens/Kimchi_Korean_Restaurant.git",
+      demo: "https://incredible-tulumba-a4e81d.netlify.app/",
+      image: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&q=80&w=600"
     }
   ];
 
