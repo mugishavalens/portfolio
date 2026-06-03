@@ -114,6 +114,12 @@ const Projects = () => {
         message: "This machine learning project is currently being developed. Visit the GitHub repository to explore the codebase and follow the development progress!",
         githubUrl: "https://github.com/mugishavalens/emergency-severity-prediction-system.git"
       });
+    } else if (title === "EduSta Big Data Projection") {
+      setPopupData({
+        title: "Project In Progress",
+        message: "This big data project is currently under development. Check out the GitHub repository to see the latest progress and explore the codebase!",
+        githubUrl: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git"
+      });
     }
   };
 
@@ -142,7 +148,7 @@ const Projects = () => {
       title: "EduSta Big Data Projection",
       description: "Analysis of large-scale educational datasets, performing data cleaning and preprocessing for accurate analysis and data-driven conclusions.",
       tech: ["Big Data", "Data Analysis", "Python"],
-      github: "https://github.com/mugishavalens",
+      github: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git",
       demo: "in-progress",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
     },
