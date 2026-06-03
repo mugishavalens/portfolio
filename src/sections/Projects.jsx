@@ -149,7 +149,7 @@ const Projects = () => {
       description: "Analysis of large-scale educational datasets, performing data cleaning and preprocessing for accurate analysis and data-driven conclusions.",
       tech: ["Big Data", "Data Analysis", "Python"],
       github: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git",
-      demo: "in-progress",
+      demo: "https://edusta-project.vercel.app/",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
     },
     {
