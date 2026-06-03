@@ -177,6 +177,14 @@ const Projects = () => {
       github: "https://github.com/mugishavalens/Kimchi_Korean_Restaurant.git",
       demo: "https://incredible-tulumba-a4e81d.netlify.app/",
       image: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "The Bistro",
+      description: "A full-stack restaurant web application with an elegant dining experience, featuring menu browsing, reservations, and a polished UI deployed on Google Cloud Run.",
+      tech: ["Full-Stack", "Google Cloud", "Restaurant"],
+      github: "https://github.com/mugishavalens/the_bestro.git",
+      demo: "https://the-bistro-980958970412.europe-west2.run.app/",
+      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600"
     }
   ];
 
