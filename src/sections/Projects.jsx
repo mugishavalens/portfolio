@@ -165,7 +165,7 @@ const Projects = () => {
       description: "A smart city civic engagement platform for Kigali, enabling citizens to report urban issues, track resolutions, and interact with city services in real time.",
       tech: ["React", "Node.js", "Smart City"],
       github: "https://github.com/mugishavalens/civicguard-kigali-smart-city.git",
-      demo: "https://stately-parfait-adb0ed.netlify.app/",
+      demo: "https://kigali-civicguard.netlify.app/",
       image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&q=80&w=600"
     },
     {
