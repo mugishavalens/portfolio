@@ -114,6 +114,12 @@ const Projects = () => {
         message: "This machine learning project is currently being developed. Visit the GitHub repository to explore the codebase and follow the development progress!",
         githubUrl: "https://github.com/mugishavalens/emergency-severity-prediction-system.git"
       });
+    } else if (title === "EduSta Big Data Projection") {
+      setPopupData({
+        title: "Project In Progress",
+        message: "This big data project is currently under development. Check out the GitHub repository to see the latest progress and explore the codebase!",
+        githubUrl: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git"
+      });
     }
   };
 
@@ -142,8 +148,8 @@ const Projects = () => {
       title: "EduSta Big Data Projection",
       description: "Analysis of large-scale educational datasets, performing data cleaning and preprocessing for accurate analysis and data-driven conclusions.",
       tech: ["Big Data", "Data Analysis", "Python"],
-      github: "https://github.com/mugishavalens",
-      demo: "in-progress",
+      github: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git",
+      demo: "https://edusta-project.vercel.app/",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
     },
     {
@@ -159,7 +165,7 @@ const Projects = () => {
       description: "A smart city civic engagement platform for Kigali, enabling citizens to report urban issues, track resolutions, and interact with city services in real time.",
       tech: ["React", "Node.js", "Smart City"],
       github: "https://github.com/mugishavalens/civicguard-kigali-smart-city.git",
-      demo: "https://stately-parfait-adb0ed.netlify.app/",
+      demo: "https://kigali-civicguard.netlify.app/",
       image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&q=80&w=600"
     },
     {
@@ -177,6 +183,14 @@ const Projects = () => {
       github: "https://github.com/mugishavalens/Kimchi_Korean_Restaurant.git",
       demo: "https://incredible-tulumba-a4e81d.netlify.app/",
       image: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "The Bistro",
+      description: "A full-stack restaurant web application with an elegant dining experience, featuring menu browsing, reservations, and a polished UI deployed on Google Cloud Run.",
+      tech: ["Full-Stack", "Google Cloud", "Restaurant"],
+      github: "https://github.com/mugishavalens/the_bestro.git",
+      demo: "https://the-bistro-980958970412.europe-west2.run.app/",
+      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600"
     }
   ];
 
