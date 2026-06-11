@@ -167,7 +167,7 @@ const Projects = () => {
       description: "A modern e-commerce storefront with product listings, cart management, and a smooth shopping experience built with a component-driven architecture.",
       tech: ["Vue.js", "JavaScript", "E-commerce"],
       github: "https://github.com/mugishavalens/simba-store.git",
-      demo: "https://sunny-mandazi-1b2114.netlify.app/#/",
+      demo: "https://simba-store.netlify.app/",
       image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=600"
     },
     {
