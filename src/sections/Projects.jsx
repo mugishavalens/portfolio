@@ -129,36 +129,12 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "Emergency Severity Prediction System",
-      description: "A machine learning based system to analyze emergency-related data and estimate severity levels. Structured for data-driven decision making.",
-      tech: ["Python", "Data Analysis", "Machine Learning"],
-      github: "https://github.com/mugishavalens",
-      demo: "in-progress",
-      image: "https://images.unsplash.com/photo-1518186239767-28a0824cff8a?auto=format&fit=crop&q=80&w=600"
-    },
-    {
-      title: "Job Application Management System",
-      description: "Full-stack web application to manage and track job applications efficiently, with features for storing, retrieving and updating application data.",
-      tech: ["PHP", "MySQL", "Web-Development"],
-      github: "https://github.com/mugishavalens",
-      demo: "https://poetic-cassata-a21d35.netlify.app/",
-      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=600"
-    },
-    {
-      title: "EduSta Big Data Projection",
-      description: "Analysis of large-scale educational datasets, performing data cleaning and preprocessing for accurate analysis and data-driven conclusions.",
-      tech: ["Big Data", "Data Analysis", "Python"],
-      github: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git",
-      demo: "https://edusta-project.vercel.app/",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
-    },
-    {
-      title: "E-commerce Product Page",
-      description: "Interactive product page with dynamic UI features such as product selection, interaction handling, and basic cart functionality.",
-      tech: ["HTML", "CSS", "JavaScript"],
-      github: "https://github.com/mugishavalens",
-      demo: "https://ecommerce-page-viva.netlify.app/shop",
-      image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=600"
+      title: "The Bistro",
+      description: "A full-stack restaurant web application with an elegant dining experience, featuring menu browsing, reservations, and a polished UI deployed on Google Cloud Run.",
+      tech: ["Full-Stack", "Google Cloud", "Restaurant"],
+      github: "https://github.com/mugishavalens/the_bestro.git",
+      demo: "https://the-bistro-980958970412.europe-west2.run.app/",
+      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600"
     },
     {
       title: "CivicGuard – Kigali Smart City",
@@ -185,12 +161,36 @@ const Projects = () => {
       image: "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&q=80&w=600"
     },
     {
-      title: "The Bistro",
-      description: "A full-stack restaurant web application with an elegant dining experience, featuring menu browsing, reservations, and a polished UI deployed on Google Cloud Run.",
-      tech: ["Full-Stack", "Google Cloud", "Restaurant"],
-      github: "https://github.com/mugishavalens/the_bestro.git",
-      demo: "https://the-bistro-980958970412.europe-west2.run.app/",
-      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=600"
+      title: "E-commerce Product Page",
+      description: "Interactive product page with dynamic UI features such as product selection, interaction handling, and basic cart functionality.",
+      tech: ["HTML", "CSS", "JavaScript"],
+      github: "https://github.com/mugishavalens",
+      demo: "https://ecommerce-page-viva.netlify.app/shop",
+      image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "Job Application Management System",
+      description: "Full-stack web application to manage and track job applications efficiently, with features for storing, retrieving and updating application data.",
+      tech: ["PHP", "MySQL", "Web-Development"],
+      github: "https://github.com/mugishavalens",
+      demo: "https://poetic-cassata-a21d35.netlify.app/",
+      image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "EduSta Big Data Projection",
+      description: "Analysis of large-scale educational datasets, performing data cleaning and preprocessing for accurate analysis and data-driven conclusions.",
+      tech: ["Big Data", "Data Analysis", "Python"],
+      github: "https://github.com/mugishavalens/Edusta-Bigdata-Projection.git",
+      demo: "https://edusta-bigdata-project.vercel.app/",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      title: "Emergency Severity Prediction System",
+      description: "A machine learning based system to analyze emergency-related data and estimate severity levels. Structured for data-driven decision making.",
+      tech: ["Python", "Data Analysis", "Machine Learning"],
+      github: "https://github.com/mugishavalens",
+      demo: "in-progress",
+      image: "https://images.unsplash.com/photo-1518186239767-28a0824cff8a?auto=format&fit=crop&q=80&w=600"
     }
   ];
 
