@@ -1,39 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './sections/Hero';
+import Projects from './sections/Projects';
 import About from './sections/About';
 import Skills from './sections/Skills';
-import Projects from './sections/Projects';
+import Process from './sections/Process';
 import Experience from './sections/Experience';
 import Contact from './sections/Contact';
 import Footer from './components/Footer';
 
-function App() {
-  const [isDark, setIsDark] = useState(() => {
+const readTheme = () => {
+  try {
     const saved = localStorage.getItem('theme');
-    return saved ? saved === 'dark' : true; // Default to dark as per initial design
-  });
+    if (saved) return saved === 'dark';
+  } catch {
+    /* storage unavailable */
+  }
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false;
+};
+
+function App() {
+  const [isDark, setIsDark] = useState(readTheme);
 
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    document.documentElement.classList.toggle('dark', isDark);
+    try {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    } catch {
+      /* storage unavailable */
     }
   }, [isDark]);
 
-  const toggleTheme = () => setIsDark(!isDark);
-
   return (
-    <div className="bg-background text-text selection:bg-accent/30 min-h-screen transition-colors duration-300">
-      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
+    <div className="bg-background text-text min-h-screen transition-colors duration-300">
+      <Navbar isDark={isDark} toggleTheme={() => setIsDark((d) => !d)} />
       <main>
         <Hero />
+        <Projects />
         <About />
         <Skills />
-        <Projects />
+        <Process />
         <Experience />
         <Contact />
       </main>
@@ -43,4 +49,3 @@ function App() {
 }
 
 export default App;
-

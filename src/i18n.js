@@ -2,76 +2,371 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+const en = {
+  nav: { about: 'About', skills: 'Skills', projects: 'Projects', exp: 'Experience', contact: 'Contact', hire: 'Hire me', role1: 'Software Engineer', role2: '& Backend Developer' },
+  hero: {
+    word1: 'Software', word2: 'Engineer',
+    hello: "Hello! I'm {{name}}",
+    desc: 'Software Engineering student at AUCA building reliable backends, full-stack web apps and security tools with Python, Django, Java, Spring Boot and JavaScript.',
+    viewWork: 'View projects', downloadCV: 'Download CV',
+    tagline: 'Turning ideas into reliable software',
+    years: 'Years coding', projects: 'Live projects', langs: 'Languages spoken',
+  },
+  about: {
+    title: 'About me',
+    p1: "I'm a Software Engineering student at the Adventist University of Central Africa (AUCA) with hands-on experience in backend and full-stack development, REST APIs and database-driven applications.",
+    p2: 'I care about software that is reliable and scales. I train in data structures and algorithms with Africa to Silicon Valley (A2SV), and my strongest interests are backend engineering, cybersecurity and AI.',
+    education: 'Education', educationVal: 'BSc Software Engineering, AUCA · 2024 – present',
+    location: 'Based in', locationVal: 'Kigali, Rwanda',
+    languages: 'Languages', languagesVal: 'Kinyarwanda, Kirundi, English, French',
+    certs: 'Certifications', certsVal: 'Cisco Networking Academy · The Gym IT Skills',
+  },
+  projects: {
+    title: 'Featured projects', count: '{{count}} live projects', live: 'Visit live site', alsoTitle: 'Also worked on', team: 'Team project · not public',
+    goRwanda: 'Online bus-ticket platform for Go Rwanda Tour & Travel: search trips, pick a seat in real time, pay with Mobile Money and get an e-ticket. Built as a multi-company SaaS.',
+    cyberguard: 'AI-driven cybersecurity platform that brings endpoint, network, cloud and identity signals into one detection and response dashboard, with views for admins, responders and compliance teams.',
+    bistro: 'Full-stack restaurant website for a Kigali bistro, with menu browsing, events, reviews and table reservations. Deployed on Google Cloud Run.',
+    simba: 'Online store for Simba Supermarket with AI-assisted product search, branch pick-up and a shop available in English, French and Kinyarwanda.',
+    kimchi: 'Restaurant website for a Korean dining brand, with menu showcase, events, gallery and table booking, in light and dark themes.',
+    navexa: 'Aviation services platform. I worked on supplier selection and ranking logic, and on finance and supplier-payout workflows.',
+    mdmis: 'Management information system. I contributed core features, application workflows and technical improvements.',
+  },
+  skills: {
+    title: 'Skills & services', servicesTitle: 'What I do', stackTitle: 'My stack',
+    s1: { t: 'Backend development', d: 'Django, Spring Boot and REST APIs with clean business logic.' },
+    s2: { t: 'Full-stack web apps', d: 'Database-driven apps from schema to interface.' },
+    s3: { t: 'Security & networking', d: 'Vulnerability assessment, pen-testing practice, Cisco networks.' },
+    s4: { t: 'Data & AI', d: 'Data cleaning, validation and processing for prediction.' },
+    s5: { t: 'Problem solving', d: 'Efficient algorithms, trained at A2SV.' },
+    g1: 'Languages', g2: 'Backend', g3: 'Frontend & databases', g4: 'Networking & security', g5: 'Tools', g6: 'Practice',
+  },
+  process: {
+    title: 'How I work',
+    p1: { t: 'Understand', d: 'Learn the users, the goal and the constraints.' },
+    p2: { t: 'Design', d: 'Plan the data model, the APIs and the flows.' },
+    p3: { t: 'Build', d: 'Write clean, tested code with Git workflows.' },
+    p4: { t: 'Test', d: 'Validate, debug and harden for edge cases.' },
+    p5: { t: 'Ship', d: 'Deploy, monitor and keep improving.' },
+  },
+  exp: {
+    title: 'Experience & training', present: 'Present', site: 'Website', video: 'Watch video',
+    i1: { org: 'Innovation Center — AUCA', role: 'Software Developer', desc: 'Building application features, business logic and fixes on team projects, using Git-based workflows and software engineering best practices.' },
+    i2: { org: 'Africa to Silicon Valley (A2SV)', role: 'Algorithms Trainee', desc: 'Training in data structures, algorithms and competitive programming: designing efficient solutions and analysing their complexity.' },
+    i3: { org: 'The Gym', role: 'IT Training Program', desc: 'Built practical IT and systems knowledge through hands-on training and applied problem-solving.' },
+    i4: { org: 'Upskills Program', role: 'Programming Foundations', desc: 'Developed core programming, debugging and software development skills through practical exercises.' },
+    i5: { org: 'Adventist University of Central Africa', role: 'BSc Software Engineering', desc: 'Coursework in software development, web applications, data structures, networking, cybersecurity and big data.' },
+  },
+  contact: {
+    title1: "Let's build", title2: 'something great!',
+    intro: "I'm open to internships, new projects and collaborations. Send a message and I'll reply by email.",
+    heading: 'Contact me', connect: "Let's connect",
+    email: 'Email', phone: 'Phone', location: 'Location',
+    name: 'Your name', emailLabel: 'Your email', message: 'Message',
+    namePh: 'Jane Doe', emailPh: 'jane@company.com', messagePh: 'Tell me about your project or role…',
+    send: 'Send message', sending: 'Sending…',
+    success: "Thanks! Your message was sent. I'll get back to you soon.",
+    required: 'Please fill in every field.', invalid: 'Please enter a valid email address.',
+    failed: "The message couldn't be sent right now.", fallback: 'Send it with your email app',
+  },
+  footer: { rights: 'All rights reserved.', top: 'Back to top' },
+};
+
+const fr = {
+  nav: { about: 'À propos', skills: 'Compétences', projects: 'Projets', exp: 'Expérience', contact: 'Contact', hire: 'Me recruter', role1: 'Ingénieur logiciel', role2: '& développeur backend' },
+  hero: {
+    word1: 'Ingénieur', word2: 'Logiciel',
+    hello: 'Bonjour ! Je suis {{name}}',
+    desc: "Étudiant en génie logiciel à l'AUCA, je crée des backends fiables, des applications web full-stack et des outils de sécurité avec Python, Django, Java, Spring Boot et JavaScript.",
+    viewWork: 'Voir les projets', downloadCV: 'Télécharger le CV',
+    tagline: 'Transformer les idées en logiciels fiables',
+    years: 'Ans de code', projects: 'Projets en ligne', langs: 'Langues parlées',
+  },
+  about: {
+    title: 'À propos',
+    p1: "Je suis étudiant en génie logiciel à l'Université Adventiste d'Afrique Centrale (AUCA), avec une expérience pratique du développement backend et full-stack, des API REST et des applications orientées données.",
+    p2: "Je tiens à des logiciels fiables et évolutifs. Je m'entraîne aux structures de données et à l'algorithmique avec Africa to Silicon Valley (A2SV), et je m'intéresse surtout au backend, à la cybersécurité et à l'IA.",
+    education: 'Formation', educationVal: 'Licence en génie logiciel, AUCA · 2024 – aujourd’hui',
+    location: 'Basé à', locationVal: 'Kigali, Rwanda',
+    languages: 'Langues', languagesVal: 'Kinyarwanda, kirundi, anglais, français',
+    certs: 'Certifications', certsVal: 'Cisco Networking Academy · The Gym IT Skills',
+  },
+  projects: {
+    title: 'Projets phares', count: '{{count}} projets en ligne', live: 'Voir le site', alsoTitle: 'J’ai aussi contribué à', team: 'Projet d’équipe · non public',
+    goRwanda: 'Plateforme de billets de bus en ligne pour Go Rwanda Tour & Travel : rechercher un trajet, choisir sa place en temps réel, payer par Mobile Money et recevoir un e-billet. Conçue comme un SaaS multi-entreprises.',
+    cyberguard: 'Plateforme de cybersécurité pilotée par l’IA qui réunit les signaux des terminaux, du réseau, du cloud et des identités dans un tableau de bord de détection et de réponse, avec des vues pour admins, intervenants et conformité.',
+    bistro: 'Site full-stack pour un bistro de Kigali : menu, événements, avis et réservation de table. Déployé sur Google Cloud Run.',
+    simba: 'Boutique en ligne pour Simba Supermarket avec recherche de produits assistée par IA, retrait en magasin et interface en anglais, français et kinyarwanda.',
+    kimchi: 'Site pour un restaurant coréen : menu, événements, galerie et réservation, en thème clair et sombre.',
+    navexa: 'Plateforme de services aéronautiques. J’ai travaillé sur la sélection et le classement des fournisseurs, ainsi que sur les flux financiers et de paiement fournisseurs.',
+    mdmis: 'Système d’information de gestion. J’ai contribué aux fonctionnalités principales, aux flux applicatifs et aux améliorations techniques.',
+  },
+  skills: {
+    title: 'Compétences & services', servicesTitle: 'Ce que je fais', stackTitle: 'Ma stack',
+    s1: { t: 'Développement backend', d: 'Django, Spring Boot et API REST avec une logique métier claire.' },
+    s2: { t: 'Applications web full-stack', d: 'Des applications orientées données, du schéma à l’interface.' },
+    s3: { t: 'Sécurité & réseaux', d: 'Évaluation de vulnérabilités, pentest, réseaux Cisco.' },
+    s4: { t: 'Données & IA', d: 'Nettoyage, validation et traitement de données pour la prédiction.' },
+    s5: { t: 'Résolution de problèmes', d: 'Algorithmes efficaces, formé à A2SV.' },
+    g1: 'Langages', g2: 'Backend', g3: 'Frontend & bases de données', g4: 'Réseaux & sécurité', g5: 'Outils', g6: 'Entraînement',
+  },
+  process: {
+    title: 'Ma méthode',
+    p1: { t: 'Comprendre', d: 'Connaître les utilisateurs, l’objectif et les contraintes.' },
+    p2: { t: 'Concevoir', d: 'Planifier le modèle de données, les API et les parcours.' },
+    p3: { t: 'Développer', d: 'Écrire un code propre et testé avec Git.' },
+    p4: { t: 'Tester', d: 'Valider, déboguer et couvrir les cas limites.' },
+    p5: { t: 'Livrer', d: 'Déployer, surveiller et améliorer.' },
+  },
+  exp: {
+    title: 'Expérience & formation', present: 'Aujourd’hui', site: 'Site web', video: 'Voir la vidéo',
+    i1: { org: 'Innovation Center — AUCA', role: 'Développeur logiciel', desc: 'Développement de fonctionnalités, de logique métier et de correctifs sur des projets d’équipe, avec Git et les bonnes pratiques du génie logiciel.' },
+    i2: { org: 'Africa to Silicon Valley (A2SV)', role: 'Stagiaire en algorithmique', desc: 'Formation aux structures de données, à l’algorithmique et à la programmation compétitive : solutions efficaces et analyse de complexité.' },
+    i3: { org: 'The Gym', role: 'Programme de formation IT', desc: 'Connaissances pratiques en IT et systèmes, acquises par la pratique et la résolution de problèmes.' },
+    i4: { org: 'Upskills Program', role: 'Bases de la programmation', desc: 'Compétences de base en programmation, débogage et développement logiciel par des exercices pratiques.' },
+    i5: { org: 'Université Adventiste d’Afrique Centrale', role: 'Licence en génie logiciel', desc: 'Cours de développement logiciel, applications web, structures de données, réseaux, cybersécurité et big data.' },
+  },
+  contact: {
+    title1: 'Construisons', title2: 'quelque chose de grand !',
+    intro: 'Je suis ouvert aux stages, nouveaux projets et collaborations. Envoyez un message et je répondrai par e-mail.',
+    heading: 'Me contacter', connect: 'Restons en contact',
+    email: 'E-mail', phone: 'Téléphone', location: 'Localisation',
+    name: 'Votre nom', emailLabel: 'Votre e-mail', message: 'Message',
+    namePh: 'Jeanne Dupont', emailPh: 'jeanne@entreprise.com', messagePh: 'Parlez-moi de votre projet ou du poste…',
+    send: 'Envoyer', sending: 'Envoi…',
+    success: 'Merci ! Votre message a été envoyé. Je vous répondrai bientôt.',
+    required: 'Veuillez remplir tous les champs.', invalid: 'Veuillez saisir une adresse e-mail valide.',
+    failed: 'Le message n’a pas pu être envoyé pour le moment.', fallback: 'L’envoyer avec votre messagerie',
+  },
+  footer: { rights: 'Tous droits réservés.', top: 'Haut de page' },
+};
+
+const rw = {
+  nav: { about: 'Ibinyerekeye', skills: 'Ubumenyi', projects: 'Imishinga', exp: 'Inararibonye', contact: 'Twandikire', hire: 'Nkoresha', role1: 'Injeniyeri wa porogaramu', role2: '& Umukozi wa backend' },
+  hero: {
+    word1: 'Software', word2: 'Engineer',
+    hello: 'Muraho! Ndi {{name}}',
+    desc: 'Ndi umunyeshuri wiga Software Engineering muri AUCA. Nubaka backend zizewe, porogaramu za web zuzuye n’ibikoresho by’umutekano nkoresheje Python, Django, Java, Spring Boot na JavaScript.',
+    viewWork: 'Reba imishinga', downloadCV: 'Kuramo CV',
+    tagline: 'Guhindura ibitekerezo porogaramu zizewe',
+    years: 'Imyaka nandika code', projects: 'Imishinga iri online', langs: 'Indimi mvuga',
+  },
+  about: {
+    title: 'Ibinyerekeye',
+    p1: 'Ndi umunyeshuri wiga Software Engineering muri Kaminuza y’Abadiventisti yo muri Afurika yo Hagati (AUCA). Mfite ubunararibonye mu kubaka backend, porogaramu zuzuye, REST API na porogaramu zikoresha database.',
+    p2: 'Nita cyane kuri porogaramu zizewe kandi zaguka. Niga data structures na algorithms muri Africa to Silicon Valley (A2SV), kandi nkunda cyane backend, umutekano w’ikoranabuhanga na AI.',
+    education: 'Amashuri', educationVal: 'Software Engineering, AUCA · 2024 – ubu',
+    location: 'Mba', locationVal: 'Kigali, Rwanda',
+    languages: 'Indimi', languagesVal: 'Ikinyarwanda, Ikirundi, Icyongereza, Igifaransa',
+    certs: 'Impamyabushobozi', certsVal: 'Cisco Networking Academy · The Gym IT Skills',
+  },
+  projects: {
+    title: 'Imishinga yanjye', count: 'Imishinga {{count}} iri online', live: 'Fungura urubuga', alsoTitle: 'Nanakoze kuri', team: 'Umushinga w’itsinda · ntabwo ari rusange',
+    goRwanda: 'Urubuga rwo kugura amatike ya bisi rwa Go Rwanda Tour & Travel: shakisha urugendo, hitamo intebe ako kanya, wishyure na Mobile Money, uhabwe itike yo kuri telefoni. Rwubatswe nka SaaS ikorera ibigo byinshi.',
+    cyberguard: 'Urubuga rw’umutekano w’ikoranabuhanga rukoresha AI, ruhuriza hamwe amakuru ya mudasobwa, umuyoboro, cloud n’abakoresha mu kibaho kimwe cyo gutahura no guhangana n’ibitero.',
+    bistro: 'Urubuga rwuzuye rwa resitora yo i Kigali: menu, ibirori, ibitekerezo by’abakiriya no gufata ameza. Rwashyizwe kuri Google Cloud Run.',
+    simba: 'Iduka rya Simba Supermarket kuri internet, rifite gushakisha ibicuruzwa bifashijwe na AI, kwakirira ku ishami, mu Cyongereza, Igifaransa n’Ikinyarwanda.',
+    kimchi: 'Urubuga rwa resitora y’ibiryo bya Koreya: menu, ibirori, amafoto no gufata ameza, mu mabara y’umucyo n’ijimye.',
+    navexa: 'Urubuga rwa serivisi z’indege. Nakoze ku buryo bwo guhitamo no gutondeka abatanga serivisi, no ku mikorere y’imari n’ubwishyu bwabo.',
+    mdmis: 'Sisitemu y’amakuru y’imicungire. Nagize uruhare mu bice by’ingenzi, imikorere ya porogaramu n’iterambere ryayo.',
+  },
+  skills: {
+    title: 'Ubumenyi na serivisi', servicesTitle: 'Ibyo nkora', stackTitle: 'Ibikoresho nkoresha',
+    s1: { t: 'Kubaka backend', d: 'Django, Spring Boot na REST API zifite logic isobanutse.' },
+    s2: { t: 'Porogaramu za web zuzuye', d: 'Porogaramu zikoresha database, kuva ku miterere kugeza ku isura.' },
+    s3: { t: 'Umutekano n’imiyoboro', d: 'Gusuzuma intege nke, pen-testing, imiyoboro ya Cisco.' },
+    s4: { t: 'Amakuru na AI', d: 'Gusukura, kugenzura no gutunganya amakuru yo guteganya.' },
+    s5: { t: 'Gukemura ibibazo', d: 'Algorithms zihuta, nigiye muri A2SV.' },
+    g1: 'Indimi za porogaramu', g2: 'Backend', g3: 'Frontend na database', g4: 'Imiyoboro n’umutekano', g5: 'Ibikoresho', g6: 'Imyitozo',
+  },
+  process: {
+    title: 'Uko nkora',
+    p1: { t: 'Kumva', d: 'Kumenya abakoresha, intego n’imbogamizi.' },
+    p2: { t: 'Gutegura', d: 'Gutegura database, API n’inzira z’umukoresha.' },
+    p3: { t: 'Kubaka', d: 'Kwandika code isukuye, ikoresha Git.' },
+    p4: { t: 'Kugerageza', d: 'Kugenzura, gukosora no gukomeza porogaramu.' },
+    p5: { t: 'Gushyira ahagaragara', d: 'Deploy, gukurikirana no gukomeza kunoza.' },
+  },
+  exp: {
+    title: 'Inararibonye n’amahugurwa', present: 'Ubu', site: 'Urubuga', video: 'Reba video',
+    i1: { org: 'Innovation Center — AUCA', role: 'Umwubatsi wa porogaramu', desc: 'Kubaka ibice bya porogaramu, logic n’ikosora ku mishinga y’itsinda, nkoresheje Git n’imikorere myiza ya software engineering.' },
+    i2: { org: 'Africa to Silicon Valley (A2SV)', role: 'Umunyeshuri wa algorithms', desc: 'Amahugurwa kuri data structures, algorithms na competitive programming: gushaka ibisubizo byihuse no gusuzuma complexity.' },
+    i3: { org: 'The Gym', role: 'Amahugurwa ya IT', desc: 'Ubumenyi bufatika bwa IT na sisitemu, binyuze mu myitozo no gukemura ibibazo.' },
+    i4: { org: 'Upskills Program', role: 'Ishingiro rya programming', desc: 'Ubumenyi bw’ibanze bwo kwandika code, gukosora amakosa no kubaka porogaramu, binyuze mu myitozo.' },
+    i5: { org: 'Kaminuza y’Abadiventisti yo muri Afurika yo Hagati', role: 'Software Engineering', desc: 'Amasomo ya software development, web applications, data structures, networking, cybersecurity na big data.' },
+  },
+  contact: {
+    title1: 'Twubake', title2: 'ikintu gikomeye!',
+    intro: 'Niteguye internship, imishinga mishya n’ubufatanye. Nyandikira, nzagusubiza kuri email.',
+    heading: 'Twandikire', connect: 'Duhuze',
+    email: 'Imeli', phone: 'Telefoni', location: 'Aho mba',
+    name: 'Izina ryawe', emailLabel: 'Imeli yawe', message: 'Ubutumwa',
+    namePh: 'Uwase Aline', emailPh: 'aline@company.com', messagePh: 'Mbwira ku mushinga wawe cyangwa akazi…',
+    send: 'Ohereza', sending: 'Birimo koherezwa…',
+    success: 'Murakoze! Ubutumwa bwawe bwoherejwe. Nzagusubiza vuba.',
+    required: 'Uzuza ahantu hose.', invalid: 'Andika imeli nyayo.',
+    failed: 'Ubutumwa ntibushoboye koherezwa ubu.', fallback: 'Bwohereze ukoresheje porogaramu ya imeli',
+  },
+  footer: { rights: 'Uburenganzira bwose burasigasigwa.', top: 'Subira hejuru' },
+};
+
+const sw = {
+  nav: { about: 'Kuhusu', skills: 'Ujuzi', projects: 'Miradi', exp: 'Uzoefu', contact: 'Mawasiliano', hire: 'Niajiri', role1: 'Mhandisi wa programu', role2: '& Msanidi wa backend' },
+  hero: {
+    word1: 'Mhandisi', word2: 'Programu',
+    hello: 'Habari! Mimi ni {{name}}',
+    desc: 'Mwanafunzi wa Uhandisi wa Programu katika AUCA, ninajenga backend imara, programu kamili za wavuti na zana za usalama kwa Python, Django, Java, Spring Boot na JavaScript.',
+    viewWork: 'Tazama miradi', downloadCV: 'Pakua CV',
+    tagline: 'Kugeuza mawazo kuwa programu imara',
+    years: 'Miaka ya kuandika code', projects: 'Miradi hai', langs: 'Lugha ninazozungumza',
+  },
+  about: {
+    title: 'Kuhusu mimi',
+    p1: 'Mimi ni mwanafunzi wa Uhandisi wa Programu katika Chuo Kikuu cha Waadventista cha Afrika ya Kati (AUCA), mwenye uzoefu wa vitendo katika backend, programu kamili, REST API na programu zinazotumia hifadhidata.',
+    p2: 'Ninajali programu imara zinazoweza kukua. Ninafunzwa miundo ya data na algoriti na Africa to Silicon Valley (A2SV), na napenda zaidi backend, usalama wa mtandao na AI.',
+    education: 'Elimu', educationVal: 'Shahada ya Uhandisi wa Programu, AUCA · 2024 – sasa',
+    location: 'Ninaishi', locationVal: 'Kigali, Rwanda',
+    languages: 'Lugha', languagesVal: 'Kinyarwanda, Kirundi, Kiingereza, Kifaransa',
+    certs: 'Vyeti', certsVal: 'Cisco Networking Academy · The Gym IT Skills',
+  },
+  projects: {
+    title: 'Miradi maalum', count: 'Miradi {{count}} hai', live: 'Tembelea tovuti', alsoTitle: 'Pia nimefanya kazi kwenye', team: 'Mradi wa timu · si wa umma',
+    goRwanda: 'Jukwaa la tiketi za basi mtandaoni la Go Rwanda Tour & Travel: tafuta safari, chagua kiti papo hapo, lipa kwa Mobile Money na upokee tiketi ya kielektroniki. Imejengwa kama SaaS ya kampuni nyingi.',
+    cyberguard: 'Jukwaa la usalama wa mtandao linalotumia AI, linaloleta pamoja ishara za vifaa, mtandao, cloud na utambulisho kwenye dashibodi moja ya kugundua na kukabiliana na vitisho.',
+    bistro: 'Tovuti kamili ya mgahawa wa Kigali: menyu, matukio, maoni na kuhifadhi meza. Imewekwa kwenye Google Cloud Run.',
+    simba: 'Duka la mtandaoni la Simba Supermarket lenye utafutaji wa bidhaa kwa AI, kuchukua bidhaa tawini na lugha za Kiingereza, Kifaransa na Kinyarwanda.',
+    kimchi: 'Tovuti ya mgahawa wa Kikorea: menyu, matukio, picha na kuhifadhi meza, kwa mandhari angavu na giza.',
+    navexa: 'Jukwaa la huduma za usafiri wa anga. Nilifanya kazi kwenye uchaguzi na upangaji wa wasambazaji, na mtiririko wa fedha na malipo.',
+    mdmis: 'Mfumo wa taarifa za usimamizi. Nilichangia vipengele vikuu, mtiririko wa programu na maboresho ya kiufundi.',
+  },
+  skills: {
+    title: 'Ujuzi na huduma', servicesTitle: 'Ninachofanya', stackTitle: 'Teknolojia ninazotumia',
+    s1: { t: 'Uundaji wa backend', d: 'Django, Spring Boot na REST API zenye mantiki safi.' },
+    s2: { t: 'Programu kamili za wavuti', d: 'Programu za hifadhidata kuanzia muundo hadi kiolesura.' },
+    s3: { t: 'Usalama na mitandao', d: 'Tathmini ya udhaifu, mazoezi ya pen-testing, mitandao ya Cisco.' },
+    s4: { t: 'Data na AI', d: 'Kusafisha, kuthibitisha na kuchakata data kwa utabiri.' },
+    s5: { t: 'Kutatua matatizo', d: 'Algoriti bora, mafunzo ya A2SV.' },
+    g1: 'Lugha', g2: 'Backend', g3: 'Frontend na hifadhidata', g4: 'Mitandao na usalama', g5: 'Zana', g6: 'Mazoezi',
+  },
+  process: {
+    title: 'Jinsi ninavyofanya kazi',
+    p1: { t: 'Kuelewa', d: 'Kujua watumiaji, lengo na vikwazo.' },
+    p2: { t: 'Kubuni', d: 'Kupanga hifadhidata, API na mtiririko.' },
+    p3: { t: 'Kujenga', d: 'Kuandika code safi kwa kutumia Git.' },
+    p4: { t: 'Kujaribu', d: 'Kuthibitisha, kurekebisha na kuimarisha.' },
+    p5: { t: 'Kuzindua', d: 'Kuweka mtandaoni, kufuatilia na kuboresha.' },
+  },
+  exp: {
+    title: 'Uzoefu na mafunzo', present: 'Sasa', site: 'Tovuti', video: 'Tazama video',
+    i1: { org: 'Innovation Center — AUCA', role: 'Msanidi programu', desc: 'Kujenga vipengele, mantiki ya biashara na marekebisho kwenye miradi ya timu, kwa Git na mbinu bora za uhandisi wa programu.' },
+    i2: { org: 'Africa to Silicon Valley (A2SV)', role: 'Mwanafunzi wa algoriti', desc: 'Mafunzo ya miundo ya data, algoriti na programu za ushindani: suluhisho bora na uchambuzi wa utata.' },
+    i3: { org: 'The Gym', role: 'Programu ya mafunzo ya IT', desc: 'Ujuzi wa vitendo wa IT na mifumo kupitia mafunzo na utatuzi wa matatizo.' },
+    i4: { org: 'Upskills Program', role: 'Misingi ya programu', desc: 'Ujuzi wa msingi wa kuandika programu, kurekebisha hitilafu na uundaji wa programu kupitia mazoezi.' },
+    i5: { org: 'Chuo Kikuu cha Waadventista cha Afrika ya Kati', role: 'Shahada ya Uhandisi wa Programu', desc: 'Masomo ya uundaji wa programu, programu za wavuti, miundo ya data, mitandao, usalama wa mtandao na big data.' },
+  },
+  contact: {
+    title1: 'Tujenge', title2: 'kitu kizuri!',
+    intro: 'Niko tayari kwa mafunzo kazini, miradi mipya na ushirikiano. Tuma ujumbe nami nitajibu kwa barua pepe.',
+    heading: 'Wasiliana nami', connect: 'Tuunganishe',
+    email: 'Barua pepe', phone: 'Simu', location: 'Mahali',
+    name: 'Jina lako', emailLabel: 'Barua pepe yako', message: 'Ujumbe',
+    namePh: 'Amina Juma', emailPh: 'amina@kampuni.com', messagePh: 'Niambie kuhusu mradi au nafasi yako…',
+    send: 'Tuma ujumbe', sending: 'Inatuma…',
+    success: 'Asante! Ujumbe wako umetumwa. Nitakujibu hivi karibuni.',
+    required: 'Tafadhali jaza sehemu zote.', invalid: 'Tafadhali weka barua pepe sahihi.',
+    failed: 'Ujumbe haukuweza kutumwa kwa sasa.', fallback: 'Utume kwa programu yako ya barua pepe',
+  },
+  footer: { rights: 'Haki zote zimehifadhiwa.', top: 'Rudi juu' },
+};
+
+const tr = {
+  nav: { about: 'Hakkımda', skills: 'Yetenekler', projects: 'Projeler', exp: 'Deneyim', contact: 'İletişim', hire: 'Beni işe al', role1: 'Yazılım Mühendisi', role2: '& Backend Geliştirici' },
+  hero: {
+    word1: 'Yazılım', word2: 'Mühendisi',
+    hello: 'Merhaba! Ben {{name}}',
+    desc: "AUCA'da Yazılım Mühendisliği öğrencisiyim. Python, Django, Java, Spring Boot ve JavaScript ile güvenilir backend'ler, full-stack web uygulamaları ve güvenlik araçları geliştiriyorum.",
+    viewWork: 'Projeleri gör', downloadCV: 'CV indir',
+    tagline: 'Fikirleri güvenilir yazılıma dönüştürüyorum',
+    years: 'Yıl kodlama', projects: 'Canlı proje', langs: 'Konuştuğum dil',
+  },
+  about: {
+    title: 'Hakkımda',
+    p1: "Orta Afrika Adventist Üniversitesi'nde (AUCA) Yazılım Mühendisliği öğrencisiyim. Backend ve full-stack geliştirme, REST API'ler ve veritabanı tabanlı uygulamalarda uygulamalı deneyimim var.",
+    p2: "Güvenilir ve ölçeklenebilir yazılıma önem veriyorum. Africa to Silicon Valley (A2SV) ile veri yapıları ve algoritmalar eğitimi alıyorum; en çok backend, siber güvenlik ve yapay zekâ ile ilgileniyorum.",
+    education: 'Eğitim', educationVal: 'Yazılım Mühendisliği Lisans, AUCA · 2024 – günümüz',
+    location: 'Konum', locationVal: 'Kigali, Ruanda',
+    languages: 'Diller', languagesVal: 'Kinyarwanda, Kirundi, İngilizce, Fransızca',
+    certs: 'Sertifikalar', certsVal: 'Cisco Networking Academy · The Gym IT Skills',
+  },
+  projects: {
+    title: 'Öne çıkan projeler', count: '{{count}} canlı proje', live: 'Siteyi ziyaret et', alsoTitle: 'Katkıda bulunduğum diğer projeler', team: 'Takım projesi · herkese açık değil',
+    goRwanda: 'Go Rwanda Tour & Travel için çevrimiçi otobüs bileti platformu: sefer ara, koltuğunu anlık seç, Mobile Money ile öde ve e-bilet al. Çok şirketli bir SaaS olarak geliştirildi.',
+    cyberguard: 'Uç nokta, ağ, bulut ve kimlik sinyallerini tek bir tespit ve müdahale panelinde birleştiren yapay zekâ destekli siber güvenlik platformu; yöneticiler, müdahale ekipleri ve uyum ekipleri için ayrı görünümler.',
+    bistro: 'Kigali’deki bir bistro için full-stack web sitesi: menü, etkinlikler, yorumlar ve masa rezervasyonu. Google Cloud Run üzerinde yayında.',
+    simba: 'Simba Supermarket için yapay zekâ destekli ürün aramalı, şubeden teslim alma seçenekli, İngilizce, Fransızca ve Kinyarwanda dillerinde çevrimiçi mağaza.',
+    kimchi: 'Kore restoranı için web sitesi: menü, etkinlikler, galeri ve masa rezervasyonu; açık ve koyu tema.',
+    navexa: 'Havacılık hizmetleri platformu. Tedarikçi seçimi ve sıralama mantığı ile finans ve tedarikçi ödeme akışları üzerinde çalıştım.',
+    mdmis: 'Yönetim bilgi sistemi. Temel özelliklere, uygulama akışlarına ve teknik iyileştirmelere katkı sağladım.',
+  },
+  skills: {
+    title: 'Yetenekler ve hizmetler', servicesTitle: 'Neler yapıyorum', stackTitle: 'Teknolojilerim',
+    s1: { t: 'Backend geliştirme', d: 'Temiz iş mantığıyla Django, Spring Boot ve REST API’ler.' },
+    s2: { t: 'Full-stack web uygulamaları', d: 'Şemadan arayüze veritabanı tabanlı uygulamalar.' },
+    s3: { t: 'Güvenlik ve ağ', d: 'Zafiyet değerlendirmesi, sızma testi pratiği, Cisco ağları.' },
+    s4: { t: 'Veri ve yapay zekâ', d: 'Tahmin için veri temizleme, doğrulama ve işleme.' },
+    s5: { t: 'Problem çözme', d: 'Verimli algoritmalar, A2SV eğitimi.' },
+    g1: 'Diller', g2: 'Backend', g3: 'Frontend ve veritabanları', g4: 'Ağ ve güvenlik', g5: 'Araçlar', g6: 'Pratik',
+  },
+  process: {
+    title: 'Nasıl çalışıyorum',
+    p1: { t: 'Anla', d: 'Kullanıcıları, hedefi ve kısıtları öğren.' },
+    p2: { t: 'Tasarla', d: 'Veri modelini, API’leri ve akışları planla.' },
+    p3: { t: 'Geliştir', d: 'Git ile temiz ve test edilmiş kod yaz.' },
+    p4: { t: 'Test et', d: 'Doğrula, hataları ayıkla, uç durumları kapsa.' },
+    p5: { t: 'Yayınla', d: 'Yayına al, izle ve geliştirmeye devam et.' },
+  },
+  exp: {
+    title: 'Deneyim ve eğitim', present: 'Günümüz', site: 'Web sitesi', video: 'Videoyu izle',
+    i1: { org: 'Innovation Center — AUCA', role: 'Yazılım Geliştirici', desc: 'Takım projelerinde Git tabanlı iş akışları ve yazılım mühendisliği pratikleriyle özellikler, iş mantığı ve düzeltmeler geliştiriyorum.' },
+    i2: { org: 'Africa to Silicon Valley (A2SV)', role: 'Algoritma Eğitimi', desc: 'Veri yapıları, algoritmalar ve rekabetçi programlama eğitimi: verimli çözümler tasarlama ve karmaşıklık analizi.' },
+    i3: { org: 'The Gym', role: 'BT Eğitim Programı', desc: 'Uygulamalı eğitim ve problem çözme ile pratik BT ve sistem bilgisi.' },
+    i4: { org: 'Upskills Program', role: 'Programlama Temelleri', desc: 'Pratik alıştırmalarla temel programlama, hata ayıklama ve yazılım geliştirme becerileri.' },
+    i5: { org: 'Orta Afrika Adventist Üniversitesi', role: 'Yazılım Mühendisliği Lisans', desc: 'Yazılım geliştirme, web uygulamaları, veri yapıları, ağ, siber güvenlik ve büyük veri dersleri.' },
+  },
+  contact: {
+    title1: 'Birlikte', title2: 'harika bir şey yapalım!',
+    intro: 'Staj, yeni projeler ve iş birliklerine açığım. Mesaj gönderin, e-postayla dönüş yapayım.',
+    heading: 'Bana ulaşın', connect: 'Bağlantıda kalalım',
+    email: 'E-posta', phone: 'Telefon', location: 'Konum',
+    name: 'Adınız', emailLabel: 'E-postanız', message: 'Mesaj',
+    namePh: 'Ayşe Yılmaz', emailPh: 'ayse@sirket.com', messagePh: 'Projenizden veya pozisyondan bahsedin…',
+    send: 'Mesaj gönder', sending: 'Gönderiliyor…',
+    success: 'Teşekkürler! Mesajınız gönderildi. En kısa sürede dönüş yapacağım.',
+    required: 'Lütfen tüm alanları doldurun.', invalid: 'Lütfen geçerli bir e-posta adresi girin.',
+    failed: 'Mesaj şu anda gönderilemedi.', fallback: 'E-posta uygulamanızla gönderin',
+  },
+  footer: { rights: 'Tüm hakları saklıdır.', top: 'Başa dön' },
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
+    supportedLngs: ['en', 'fr', 'rw', 'sw', 'tr'],
+    nonExplicitSupportedLngs: true,
+    interpolation: { escapeValue: false },
     resources: {
-      en: {
-        translation: {
-          nav: { home: 'Home', about: 'About', skills: 'Skills', projects: 'Projects', exp: 'Experience', contact: 'Contact' },
-          hero: { title: 'Elevating', subtitle: 'Digital Solutions', desc: "I'm {{name}}, a Software Engineer dedicated to crafting high-performance applications and solving complex architectural challenges with precision.", viewWork: 'Explore Projects', downloadCV: 'Download CV', available: 'Available for Opportunities', current: 'Currently', innovating: 'Innovating at AUCA' },
-          about: { title: 'About', subtitle: 'My Vision', p1: 'As a Software Engineering student at the {{org}}, I am on a mission to build technology that transcends boundaries.', p2: 'My engineering philosophy centers on {{clean}} and {{efficiency}}. Through rigorous training with {{a2sv}}, I\'ve cultivated a deep proficiency in data structures and scalable system design.', p3: 'Beyond the terminal, I focus on the intersection of big data and cybersecurity, always seeking to understand the "why" behind the code.', stat1: 'Years of Depth', stat1Desc: 'Continuous learning', stat2: 'Projects Built', stat2Desc: 'Full-stack solutions', stat3: 'Elite Training', stat3Desc: 'Top 1% talent track', stat4: 'Tech Stack', stat4Desc: 'Always evolving' },
-          exp: { title: 'Career', subtitle: 'Timeline', items: { i1: { org: 'Innovation Center - AUCA', role: 'Software Developer Intern', desc: 'Driving digital transformation initiatives and architecting scalable backend services.' }, i2: { org: 'A2SV', role: 'Competitive Programming', desc: 'Intensive training in data structures and algorithmic complexity.' }, i3: { org: 'The Gym Program', role: 'IT Trainee & Developer', desc: 'Full-immersion technical training focused on system architecture.' }, i4: { org: 'AUCA', role: 'B.A. in Software Engineering', desc: 'Specializing in Distributed Systems and Data Processing.' } } },
-          skills: { title: 'Technical', subtitle: 'Skills' },
-          projects: { title: 'Featured', subtitle: 'Projects' },
-          contact: { title: 'Get In', subtitle: 'Touch', talk: "Let's talk about your project", email: 'Email', github: 'GitHub', linkedin: 'LinkedIn', name: 'Your Name', emailLabel: 'Your Email', message: 'Message', send: 'Send Message' },
-          footer: { rights: 'All rights reserved.', made: 'Made with' }
-        }
-      },
-      fr: {
-        translation: {
-          nav: { home: 'Accueil', about: 'À propos', skills: 'Compétences', projects: 'Projets', exp: 'Expérience', contact: 'Contact' },
-          hero: { title: 'Élever les', subtitle: 'Solutions Numériques', desc: "Je suis {{name}}, un ingénieur logiciel dédié à la création d'applications haute performance et à la résolution de défis architecturaux complexes avec précision.", viewWork: 'Explorer les Projets', downloadCV: 'Télécharger le CV', available: 'Disponible pour des Opportunités', current: 'Actuellement', innovating: 'Innovation à l\'AUCA' },
-          about: { title: 'À propos de', subtitle: 'Ma Vision', p1: 'En tant qu\'étudiant en génie logiciel à l\'{{org}}, ma mission est de construire une technologie qui transcende les frontières.', p2: 'Ma philosophie d\'ingénierie se concentre sur l\'{{clean}} et l\'{{efficiency}}. Grâce à une formation rigoureuse avec {{a2sv}}, j\'ai cultivé une profonde compétence dans les structures de données et la conception de systèmes évolutifs.', p3: 'Au-delà du terminal, je me concentre sur l\'intersection du big data et de la cybersécurité, cherchant toujours à comprendre le « pourquoi » derrière le code.', stat1: 'Années de Profondeur', stat1Desc: 'Apprentissage continu', stat2: 'Projets Construits', stat2Desc: 'Solutions full-stack', stat3: 'Formation d\'Élite', stat3Desc: 'Top 1% des talents', stat4: 'Stack Technique', stat4Desc: 'Toujours en évolution' },
-          exp: { title: 'Parcours', subtitle: 'Professionnel', items: { i1: { org: 'Centre d\'Innovation - AUCA', role: 'Stagiaire Développeur Logiciel', desc: 'Piloter des initiatives de transformation numérique et architecturer des services backend évolutifs.' }, i2: { org: 'A2SV', role: 'Programmation Compétitive', desc: 'Formation intensive en structures de données et complexité algorithmique.' }, i3: { org: 'The Gym Program', role: 'Stagiaire IT & Développeur', desc: 'Formation technique en immersion totale axée sur l\'architecture système.' }, i4: { org: 'AUCA', role: 'B.A. en Génie Logiciel', desc: 'Spécialisation dans les systèmes distribués et le traitement des données.' } } },
-          skills: { title: 'Compétences', subtitle: 'Techniques' },
-          projects: { title: 'Projets', subtitle: 'Vedettes' },
-          contact: { title: 'Entrer en', subtitle: 'Contact', talk: "Parlons de votre projet", email: 'Email', github: 'GitHub', linkedin: 'LinkedIn', name: 'Votre Nom', emailLabel: 'Votre Email', message: 'Message', send: 'Envoyer' },
-          footer: { rights: 'Tous droits réservés.', made: 'Fait avec' }
-        }
-      },
-      rw: {
-        translation: {
-          nav: { home: 'Ahabanza', about: 'Ibinyerekeye', skills: 'Ubumenyi', projects: 'Imishinga', exp: 'Inararibonye', contact: 'Twandikire' },
-          hero: { title: 'Guteza Imbere', subtitle: 'Ibisubizo by\'Ikoranabuhanga', desc: "Ndi {{name}}, Umwenjenyeri w'Ibisubizo by'Ikoranabuhanga wiyeguriye gukora porogaramu zifite imbaraga no gukemura ibibazo bikomeye by'imyubakire y'ikoranabuhanga mu buryo bunoze.", viewWork: 'Reba Imishinga', downloadCV: 'Kurura CV', available: 'Niteguye Akazi', current: 'Ubu', innovating: 'Guhanga udushya muri AUCA' },
-          about: { title: 'Ibinyerekeye', subtitle: 'Icyerekezo Cyange', p1: 'Nk\'umunyeshuri wiga Ubwenjenyeri bw\'Ibisubizo by\'Ikoranabuhanga muri {{org}}, intego yanjye ni ugukora ikoranabuhanga rirambye.', p2: 'Imyubakire yanjye yibanda kuri {{clean}} no ku {{efficiency}}. Binyuze mu mahugurwa akomeye ya {{a2sv}}, nubatse ubumenyi bwimbitse mu miterere y\'amakuru no gushushanya sisitemu nini.', p3: 'Usibye gukora porogaramu, nibanda ku mpanuro z\'amakuru manini n\'umutekano w\'ikoranabuhanga.', stat1: 'Imyaka yo Kwiga', stat1Desc: 'Kwiga bitagira iherezo', stat2: 'Imishinga Yakozwe', stat2Desc: 'Ibisubizo byuzuye', stat3: 'Amahugurwa yo ku Rwego rwo Hejuru', stat3Desc: 'Abanyempano ba mbere', stat4: 'Ibikoresho by\'Ikoranabuhanga', stat4Desc: 'Bikura buri munsi' },
-          exp: { title: 'Inzira y\'', subtitle: 'Inararibonye', items: { i1: { org: 'Ikigo cy\'Udushya - AUCA', role: 'Umwigishwa mu Kwubaka Porogaramu', desc: 'Guhanga udushya mu guhindura imikorere n\'ikoranabuhanga.' }, i2: { org: 'A2SV', role: 'Guhiganwa mu Kwubaka Porogaramu', desc: 'Amahugurwa akomeye mu miterere y\'amakuru.' }, i3: { org: 'The Gym Program', role: 'Umwigishwa n\'Umwubatsi wa Porogaramu', desc: 'Amahugurwa yibanda ku myubakire ya sisitemu.' }, i4: { org: 'AUCA', role: 'Impamyabumenyi y\'Icyiciro cya Kabiri', desc: 'Kwibanda kuri Sisitemu n\'Ikurikiranwa ry\'Amakuru.' } } },
-          skills: { title: 'Ubumenyi', subtitle: 'bw\'Ikoranabuhanga' },
-          projects: { title: 'Imishinga', subtitle: 'y\'Indashyikirwa' },
-          contact: { title: 'Twandikire', subtitle: 'Tuvugane', talk: "Tuganire ku mushinga wawe", email: 'Imeli', github: 'GitHub', linkedin: 'LinkedIn', name: 'Izina ryawe', emailLabel: 'Imeli yawe', message: 'Ubutumwa', send: 'Ohereza' },
-          footer: { rights: 'Uburenganzira bwose burasigasigwa.', made: 'Byakozwe na' }
-        }
-      },
-      sw: {
-        translation: {
-          nav: { home: 'Nyumbani', about: 'Kuhusu', skills: 'Ujuzi', projects: 'Miradi', exp: 'Uzoefu', contact: 'Mawasiliano' },
-          hero: { title: 'Kukuza', subtitle: 'Suluhisho za Kidijitali', desc: "Mimi ni {{name}}, Mhandisi wa Programu aliyejitolea kuunda programu zenye utendaji wa juu na kutatua changamoto tata za usanifu kwa usahihi.", viewWork: 'Angalia Miradi', downloadCV: 'Pakua CV', available: 'Napatikana kwa Fursa', current: 'Kwa sasa', innovating: 'Uvumbuzi katika AUCA' },
-          about: { title: 'Kuhusu', subtitle: 'Maono Yangu', p1: 'Kama mwanafunzi wa Uhandisi wa Programu katika {{org}}, niko kwenye dhamira ya kujenga teknolojia inayovuka mipaka.', p2: 'Falsafa yangu ya uhandisi inajikita kwenye {{clean}} na {{efficiency}}. Kupitia mafunzo makali na {{a2sv}}, nimekuza ustadi wa kina katika miundo ya data na usanifu wa mifumo mikubwa.', p3: 'Zaidi ya kuandika msimbo, ninazingatia makutano ya data kubwa na usalama wa mitandao.', stat1: 'Miaka ya Kujifunza', stat1Desc: 'Kujifunza kwa kuendelea', stat2: 'Miradi Iliyojengwa', stat2Desc: 'Suluhisho kamili', stat3: 'Mafunzo ya Wasomi', stat3Desc: 'Vipaji bora zaidi', stat4: 'Zana za Teknolojia', stat4Desc: 'Zinazobadilika kila wakati' },
-          exp: { title: 'Safari ya', subtitle: 'Kazi', items: { i1: { org: 'Kituo cha Uvumbuzi - AUCA', role: 'Mwanafunzi wa Maendeleo ya Programu', desc: 'Kuongoza mipango ya mabadiliko ya kidijitali.' }, i2: { org: 'A2SV', role: 'Mashindano ya Upangaji Programu', desc: 'Mafunzo ya kina katika miundo ya data.' }, i3: { org: 'The Gym Program', role: 'Mwanafunzi wa IT & Msanidi Programu', desc: 'Mafunzo ya kiufundi yanayozingatia usanifu wa mifumo.' }, i4: { org: 'AUCA', role: 'Shahada ya Uhandisi wa Programu', desc: 'Kubobea katika Mifumo ya Kusambaza na Usindikaji wa Data.' } } },
-          skills: { title: 'Ujuzi wa', subtitle: 'Kiufundi' },
-          projects: { title: 'Miradi', subtitle: 'Maalum' },
-          contact: { title: 'Wasiliana', subtitle: 'Nasi', talk: "Tuzungumze kuhusu mradi wako", email: 'Barua Pepe', github: 'GitHub', linkedin: 'LinkedIn', name: 'Jina Lako', emailLabel: 'Barua Pepe Yako', message: 'Ujumbe', send: 'Tuma Ujumbe' },
-          footer: { rights: 'Haki zote zimehifadhiwa.', made: 'Imetengenezwa na' }
-        }
-      },
-      tr: {
-        translation: {
-          nav: { home: 'Ana Sayfa', about: 'Hakkımda', skills: 'Yetenekler', projects: 'Projeler', exp: 'Deneyim', contact: 'İletişim' },
-          hero: { title: 'Yükseltiyoruz', subtitle: 'Dijital Çözümler', desc: "Ben {{name}}, yüksek performanslı uygulamalar geliştirmeye ve karmaşık mimari zorlukları hassasiyetle çözmeye kendini adamış bir Yazılım Mühendisi adayıyım.", viewWork: 'Projeleri Keşfet', downloadCV: 'CV İndir', available: 'Fırsatlara Açık', current: 'Şu an', innovating: 'AUCA\'da İnovasyon' },
-          about: { title: 'Hakkımda', subtitle: 'Vizyonum', p1: '{{org}}\'da Yazılım Mühendisliği öğrencisi olarak, sınırları aşan teknolojiler inşa etme misyonundayım.', p2: 'Mühendislik felsefem {{clean}} ve {{efficiency}} üzerine kuruludur. {{a2sv}} ile aldığım sıkı eğitim sayesinde veri yapıları ve ölçeklenebilir sistem tasarımı konusunda derin bir yetkinlik kazandım.', p3: 'Kodlamanın ötesinde, büyük veri ve siber güvenliğin kesişimine odaklanıyor, her zaman kodun arkasındaki "neden"i anlamaya çalışıyorum.', stat1: 'Derinlik Yılları', stat1Desc: 'Sürekli öğrenme', stat2: 'Geliştirilen Projeler', stat2Desc: 'Tam kapsamlı çözümler', stat3: 'Seçkin Eğitim', stat3Desc: 'En iyi %1 yetenek yolu', stat4: 'Teknoloji Yığını', stat4Desc: 'Her zaman gelişen' },
-          exp: { title: 'Kariyer', subtitle: 'Zaman Çizelgesi', items: { i1: { org: 'İnovasyon Merkezi - AUCA', role: 'Yazılım Geliştirme Stajyeri', desc: 'Dijital dönüşüm girişimlerini yönetmek ve ölçeklenebilir backend servisleri tasarlamak.' }, i2: { org: 'A2SV', role: 'Rekabetçi Programlama', desc: 'Veri yapıları ve algoritmik karmaşıklık üzerine yoğun eğitim.' }, i3: { org: 'The Gym Program', role: 'BT Stajyeri ve Geliştirici', desc: 'Sistem mimarisine odaklanan tam kapsamlı teknik eğitim.' }, i4: { org: 'AUCA', role: 'Yazılım Mühendisliği Lisansı', desc: 'Dağıtık Sistemler ve Veri İşleme üzerine uzmanlaşma.' } } },
-          skills: { title: 'Teknik', subtitle: 'Yetenekler' },
-          projects: { title: 'Öne Çıkan', subtitle: 'Projeler' },
-          contact: { title: 'İletişime', subtitle: 'Geçin', talk: "Projeniz hakkında konuşalım", email: 'E-posta', github: 'GitHub', linkedin: 'LinkedIn', name: 'Adınız', emailLabel: 'E-postanız', message: 'Mesajınız', send: 'Mesaj Gönder' },
-          footer: { rights: 'Tüm hakları saklıdır.', made: 'İle yapıldı' }
-        }
-      }
-    }
+      en: { translation: en },
+      fr: { translation: fr },
+      rw: { translation: rw },
+      sw: { translation: sw },
+      tr: { translation: tr },
+    },
   });
+
+// Keep <html lang> in sync so CSS uppercase rules (e.g. Turkish İ) render correctly.
+const syncLang = (lng) => { document.documentElement.lang = (lng || 'en').split('-')[0]; };
+syncLang(i18n.language);
+i18n.on('languageChanged', syncLang);
 
 export default i18n;

@@ -1,42 +1,64 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
   --color-background: var(--background);
-  --color-cards: var(--cards);
+  --color-surface: var(--surface);
   --color-text: var(--text);
-  --color-accent: #38bdf8;
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-mint: var(--mint);
+  --color-navy: var(--navy);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
 }
 
+/* Light: mint paper, navy ink, signal orange */
 :root {
-  /* Light Mode Palette */
-  --background: #f8fafc;
-  --cards: #ffffff;
-  --text: #0f172a;
-  
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --background: #e4f1ee;
+  --surface: #ffffff;
+  --text: #0b1f3a;
+  --muted: #4a5d72;
+  --line: rgba(11, 31, 58, 0.14);
+  --mint: #bfdcd5;
+  --navy: #0b1f3a;
+  --accent: #f0532d;
+  --accent-strong: #d9431f;
 
-  color-scheme: light dark;
-  color: var(--text);
-  background-color: var(--background);
-
+  font-family: var(--font-sans);
+  line-height: 1.55;
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Dark: deep navy, same orange */
 :root.dark {
-  /* Dark Mode Palette */
-  --background: #0f172a;
-  --cards: #1e293b;
-  --text: #e2e8f0;
+  --background: #08162a;
+  --surface: #0f2340;
+  --text: #eaf1f6;
+  --muted: #9fb0c3;
+  --line: rgba(234, 241, 246, 0.12);
+  --mint: #16384a;
+  --navy: #163058;
+  --accent: #ff6a43;
+  --accent-strong: #ff8062;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
 }
 
 body {
   margin: 0;
-  display: flex;
   min-width: 320px;
   min-height: 100vh;
   overflow-x: hidden;
@@ -49,85 +71,42 @@ body {
   width: 100%;
 }
 
-/* Flexible font sizing for multilingual support */
-.clamp-text {
-  font-size: clamp(1.75rem, 3.5vw, 3.25rem);
-  line-height: 1.1;
-  max-width: 100%;
-  word-break: break-word;
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
 
-@media (min-width: 640px) {
-  .clamp-text {
-    font-size: clamp(2rem, 4vw, 3.5rem);
-  }
-}
-
-@media (min-width: 768px) {
-  .clamp-text {
-    font-size: clamp(2.25rem, 4.5vw, 3.75rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .clamp-text {
-    font-size: clamp(2.5rem, 5vw, 4.25rem);
-  }
-}
-
-.clamp-desc {
-  font-size: clamp(0.875rem, 2vw, 1rem);
-  line-height: 1.6;
-  word-break: break-word;
-}
-
-@media (min-width: 768px) {
-  .clamp-desc {
-    font-size: clamp(1.125rem, 3vw, 1.25rem);
-  }
-}
-
-.clamp-about {
-  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
-  line-height: 1.7;
-}
-
-@media (min-width: 640px) {
-  .clamp-about {
-    font-size: clamp(1.25rem, 3vw, 1.25rem);
-  }
-}
-
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 @layer utilities {
-  .glassmorphism {
-    background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Dot grid ornament, as in the reference poster */
+  .dot-grid {
+    background-image: radial-gradient(var(--text) 1.4px, transparent 1.6px);
+    background-size: 14px 14px;
+    opacity: 0.35;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent to-accent/80;
+  /* Diagonal hatching ornament */
+  .hatch {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--text) 0 3px,
+      transparent 3px 9px
+    );
   }
+}
 
-  .animate-bounce-slow {
-    animation: bounce-slow 3s infinite;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-
-  @keyframes bounce-slow {
-    0%, 100% {
-      transform: translateY(-5%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-      transform: translateY(0);
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

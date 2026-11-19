@@ -1,147 +1,190 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Code2 as Github, UserRound as Linkedin, Send } from 'lucide-react';
+import { Mail, MapPin, Code2 as Github, UserRound as Linkedin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+
+const EMAIL = 'valensmugisha5@gmail.com';
+// FormSubmit relays the form to EMAIL. The first submission sends a one-time
+// "Activate Form" email to that inbox; messages are delivered after it is clicked.
+const ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const inputClass =
+  'w-full px-4 py-3.5 bg-background border border-line rounded-sm text-text placeholder:text-muted/60 focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/20 transition';
 
 const Contact = () => {
   const { t } = useTranslation();
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle');
+  const [form, setForm] = useState({ name: '', email: '', message: '', _honey: '' });
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [feedback, setFeedback] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, email, message } = formState;
+  const mailtoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`Portfolio message from ${form.name || 'a visitor'}`)}&body=${encodeURIComponent(
+    `${form.message}\n\n— ${form.name}${form.email ? ` (${form.email})` : ''}`,
+  )}`;
 
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      setStatus('error');
-      setFeedback('Please fill in all fields before sending.');
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setStatus('error');
-      setFeedback('Please enter a valid email address.');
-      return;
-    }
-
-    setStatus('sending');
-    setFeedback('Sending message...');
-
-    setTimeout(() => {
-      setStatus('success');
-      setFeedback('Message sent successfully! I will get back to you soon.');
-      setFormState({ name: '', email: '', message: '' });
-    }, 800);
-  };
-
-  const handleChange = (field) => (e) => {
-    setFormState((prev) => ({ ...prev, [field]: e.target.value }));
-    if (status !== 'idle') {
+  const update = (field) => (e) => {
+    setForm((f) => ({ ...f, [field]: e.target.value }));
+    if (status === 'error' || status === 'success') {
       setStatus('idle');
       setFeedback('');
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
+
+    if (!name || !email || !message) {
+      setStatus('error');
+      setFeedback(t('contact.required'));
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setStatus('error');
+      setFeedback(t('contact.invalid'));
+      return;
+    }
+    if (form._honey) return; // bot
+
+    setStatus('sending');
+    setFeedback('');
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+          _replyto: email,
+          _subject: `New portfolio message from ${name}`,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || `HTTP ${res.status}`);
+      setStatus('success');
+      setFeedback(t('contact.success'));
+      setForm({ name: '', email: '', message: '', _honey: '' });
+    } catch {
+      setStatus('error');
+      setFeedback(t('contact.failed'));
+    }
+  };
+
+  const details = [
+    { icon: Mail, label: t('contact.email'), value: EMAIL, href: `mailto:${EMAIL}` },
+    { icon: MapPin, label: t('contact.location'), value: 'Kigali, Rwanda' },
+  ];
+
+  const socials = [
+    { icon: Github, label: 'GitHub', href: 'https://github.com/mugishavalens' },
+    { icon: Linkedin, label: 'LinkedIn', href: 'https://www.linkedin.com/feed/' },
+    { icon: Mail, label: t('contact.email'), href: `mailto:${EMAIL}` },
+  ];
+
   return (
-    <section id="contact" className="py-32 px-4 sm:px-6 lg:px-8 bg-background">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-text">{t('contact.title')} <span className="text-accent">{t('contact.subtitle')}</span></h2>
-          <div className="w-24 h-1.5 bg-accent mx-auto rounded-full"></div>
-        </div>
+    <section id="contact" className="relative overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+      <div className="absolute -right-24 -bottom-24 w-72 h-72 rounded-full bg-accent hidden md:block" aria-hidden="true"></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-10"
-          >
-            <h3 className="text-3xl font-bold text-text">{t('contact.talk')}</h3>
-            <p className="text-text/70 text-lg leading-relaxed max-w-lg">
-              I'm always open to discussing new projects, creative ideas or 
-              opportunities to be part of your visions. Feel free to reach out!
-            </p>
-            
-            <div className="space-y-6">
-              {[
-                { icon: Mail, label: t('contact.email'), value: "valensmugisha5@gmail.com", href: "mailto:valensmugisha5@gmail.com" },
-                { icon: Github, label: t('contact.github'), value: "github.com/mugishavalens", href: "https://github.com/mugishavalens" },
-                { icon: Linkedin, label: t('contact.linkedin'), value: "Valens Mugisha", href: "https://www.linkedin.com/feed/" }
-              ].map((item, i) => (
-                <div key={i} className="flex items-center gap-5 group">
-                  <div className="p-4 bg-cards border border-white/5 rounded-2xl group-hover:border-accent/50 transition-all duration-300 shadow-lg shadow-black/10">
-                    <item.icon className="text-accent" size={24} />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-mono text-text/50 uppercase tracking-wider">{item.label}</h4>
-                    <a href={item.href} target={item.href.startsWith('http') ? "_blank" : undefined} rel={item.href.startsWith('http') ? "noopener noreferrer" : undefined} className="text-text font-semibold hover:text-accent transition-colors">
-                      {item.value}
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+      <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 shadow-2xl shadow-navy/15">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="lg:col-span-5 bg-navy text-white p-7 sm:p-10 lg:p-12 flex flex-col"
+        >
+          <h2 className="font-display uppercase leading-[0.95] text-[clamp(2.5rem,5vw,3.75rem)]">
+            <span className="block">{t('contact.title1')}</span>
+            <span className="block text-accent">{t('contact.title2')}</span>
+          </h2>
+          <div className="w-16 h-1 bg-accent my-6" aria-hidden="true"></div>
+          <p className="text-white/75 leading-relaxed max-w-sm">{t('contact.intro')}</p>
 
-          <motion.form
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-cards p-10 rounded-[2rem] border border-white/5 shadow-2xl shadow-black/20 space-y-8"
-            onSubmit={handleSubmit}
-          >
-            <div className="grid grid-cols-1 gap-8">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-mono text-text/50 uppercase tracking-widest ml-1">{t('contact.name')}</label>
-                <input
-                  type="text"
-                  id="name"
-                  value={formState.name}
-                  onChange={handleChange('name')}
-                  className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all placeholder:text-text/20"
-                  placeholder="John Doe"
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-mono text-text/50 uppercase tracking-widest ml-1">{t('contact.emailLabel')}</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formState.email}
-                  onChange={handleChange('email')}
-                  className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all placeholder:text-text/20"
-                  placeholder="john@example.com"
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-mono text-text/50 uppercase tracking-widest ml-1">{t('contact.message')}</label>
-                <textarea
-                  id="message"
-                  rows="4"
-                  value={formState.message}
-                  onChange={handleChange('message')}
-                  className="w-full px-6 py-4 bg-background border border-white/5 rounded-xl focus:outline-none focus:border-accent/50 text-text transition-all resize-none placeholder:text-text/20"
-                  placeholder="How can I help you?"
-                ></textarea>
-              </div>
+          <h3 className="mt-10 text-xs font-bold uppercase tracking-[0.2em] text-white/60">{t('contact.heading')}</h3>
+          <ul className="mt-4 space-y-4">
+            {details.map(({ icon: Icon, label, value, href }) => (
+              <li key={label} className="flex items-center gap-3">
+                <Icon size={18} className="text-accent shrink-0" aria-hidden="true" />
+                <span className="sr-only">{label}: </span>
+                {href ? (
+                  <a href={href} className="font-semibold break-all hover:text-accent transition-colors">{value}</a>
+                ) : (
+                  <span className="font-semibold">{value}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="mt-10 lg:mt-auto lg:pt-10 text-xs font-bold uppercase tracking-[0.2em] text-white/60">{t('contact.connect')}</h3>
+          <div className="mt-4 flex gap-3">
+            {socials.map(({ icon: Icon, label, href }) => (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : undefined}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={label}
+                className="grid place-items-center w-11 h-11 rounded-full bg-white text-navy hover:bg-accent hover:text-white transition-colors"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.form
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+          onSubmit={handleSubmit}
+          noValidate
+          className="lg:col-span-7 bg-surface p-7 sm:p-10 lg:p-12 space-y-6"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label htmlFor="name" className="block text-xs font-bold uppercase tracking-[0.18em] text-muted">{t('contact.name')}</label>
+              <input id="name" type="text" autoComplete="name" value={form.name} onChange={update('name')} placeholder={t('contact.namePh')} className={inputClass} />
             </div>
+            <div className="space-y-2">
+              <label htmlFor="email" className="block text-xs font-bold uppercase tracking-[0.18em] text-muted">{t('contact.emailLabel')}</label>
+              <input id="email" type="email" autoComplete="email" value={form.email} onChange={update('email')} placeholder={t('contact.emailPh')} className={inputClass} />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label htmlFor="message" className="block text-xs font-bold uppercase tracking-[0.18em] text-muted">{t('contact.message')}</label>
+            <textarea id="message" rows="6" value={form.message} onChange={update('message')} placeholder={t('contact.messagePh')} className={`${inputClass} resize-none`}></textarea>
+          </div>
+          {/* honeypot */}
+          <input type="text" name="_honey" value={form._honey} onChange={update('_honey')} tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+
+          <div aria-live="polite">
             {feedback && (
-              <p className={`text-sm ${status === 'success' ? 'text-emerald-500' : status === 'error' ? 'text-rose-500' : 'text-text/70'}`}>
-                {feedback}
-              </p>
+              <div className={`flex items-start gap-2 text-sm font-medium ${status === 'success' ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
+                {status === 'success' ? <CheckCircle2 size={18} className="shrink-0" /> : <AlertCircle size={18} className="shrink-0" />}
+                <p>
+                  {feedback}
+                  {status === 'error' && feedback === t('contact.failed') && (
+                    <> <a href={mailtoHref} className="underline font-bold">{t('contact.fallback')}</a>.</>
+                  )}
+                </p>
+              </div>
             )}
-            <button
-              type="submit"
-              className="w-full py-5 bg-accent hover:bg-accent/90 text-background rounded-xl font-bold text-lg transition-all duration-300 shadow-lg shadow-accent/20 flex items-center justify-center gap-3 group"
-            >
-              {status === 'sending' ? 'Sending...' : t('contact.send')}
-              <Send size={22} className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            </button>
-          </motion.form>
-        </div>
+          </div>
+
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 rounded-full bg-accent px-9 py-4 font-bold text-white hover:bg-accent-strong disabled:opacity-60 disabled:cursor-wait transition-colors"
+          >
+            {status === 'sending' ? t('contact.sending') : t('contact.send')}
+            <Send size={18} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+          </button>
+        </motion.form>
       </div>
     </section>
   );

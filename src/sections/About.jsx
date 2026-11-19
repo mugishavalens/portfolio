@@ -1,66 +1,54 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { GraduationCap, MapPin, Languages, Award } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import SectionHeader from '../components/SectionHeader';
 
 const About = () => {
   const { t } = useTranslation();
 
-  const stats = [
-    { label: t('about.stat1'), value: "2+", desc: t('about.stat1Desc') },
-    { label: t('about.stat2'), value: "12+", desc: t('about.stat2Desc') },
-    { label: t('about.stat3'), value: "A2SV", desc: t('about.stat3Desc') },
-    { label: t('about.stat4'), value: "Modern", desc: t('about.stat4Desc') }
+  const facts = [
+    { icon: GraduationCap, label: t('about.education'), value: t('about.educationVal') },
+    { icon: MapPin, label: t('about.location'), value: t('about.locationVal') },
+    { icon: Languages, label: t('about.languages'), value: t('about.languagesVal') },
+    { icon: Award, label: t('about.certs'), value: t('about.certsVal') },
   ];
 
   return (
-    <section id="about" className="py-32 px-4 sm:px-6 lg:px-8 bg-background">
+    <section id="about" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-text">{t('about.title')} <span className="text-accent">{t('about.subtitle')}</span></h2>
-          <div className="w-24 h-1.5 bg-accent mx-auto rounded-full"></div>
-        </div>
+        <SectionHeader title={t('about.title')} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="space-y-8"
+            className="lg:col-span-7 space-y-5"
           >
-            <div className="space-y-6">
-              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
-                {t('about.p1', { org: 'African University of Central Africa (AUCA)' })}
-              </p>
-              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
-                {t('about.p2', { 
-                  clean: 'clean architecture', 
-                  efficiency: 'algorithmic efficiency', 
-                  a2sv: 'Africa To Silicon Valley (A2SV)' 
-                })}
-              </p>
-              <p className="text-text/80 text-lg sm:text-xl leading-relaxed clamp-about">
-                {t('about.p3')}
-              </p>
-            </div>
+            <p className="text-xl sm:text-2xl font-semibold leading-snug text-text">{t('about.p1')}</p>
+            <p className="text-base sm:text-lg leading-relaxed text-muted">{t('about.p2')}</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {stats.map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-cards p-8 rounded-2xl border border-white/5 shadow-xl shadow-black/20 hover:border-accent/30 transition-all duration-300 group"
-              >
-                <h3 className="text-accent font-mono font-bold text-4xl mb-2 group-hover:scale-105 transition-transform duration-300 inline-block">{stat.value}</h3>
-                <p className="text-text font-bold mb-1">{stat.label}</p>
-                <p className="text-text/60 text-sm leading-relaxed">{stat.desc}</p>
-              </motion.div>
+          <motion.dl
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-5 bg-navy text-white rounded-sm p-6 sm:p-8 divide-y divide-white/10"
+          >
+            {facts.map(({ icon: Icon, label, value }) => (
+              <div key={label} className="flex gap-4 py-4 first:pt-0 last:pb-0">
+                <span className="grid place-items-center shrink-0 w-10 h-10 rounded-sm bg-accent text-white">
+                  <Icon size={18} />
+                </span>
+                <div>
+                  <dt className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/60">{label}</dt>
+                  <dd className="mt-1 font-semibold leading-snug">{value}</dd>
+                </div>
+              </div>
             ))}
-          </div>
+          </motion.dl>
         </div>
       </div>
     </section>

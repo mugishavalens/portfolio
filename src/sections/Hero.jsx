@@ -1,90 +1,96 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Download, ArrowRight } from 'lucide-react';
+import { Download, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import profileImg from '../assets/profile.png';
+import profileImg from '../assets/profile.jpg';
 
 const Hero = () => {
   const { t } = useTranslation();
 
+  const stats = [
+    { value: '2+', label: t('hero.years') },
+    { value: '5', label: t('hero.projects') },
+    { value: '4', label: t('hero.langs') },
+  ];
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center py-32 px-4 sm:px-6 lg:px-8 overflow-hidden bg-background">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(56,189,248,0.14),transparent_22%),radial-gradient(circle_at_bottom_left,rgba(56,189,248,0.08),transparent_20%)] pointer-events-none"></div>
-      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-background/90 to-transparent pointer-events-none"></div>
+    <section id="home" className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8">
+      {/* ornaments */}
+      <div className="dot-grid absolute top-24 left-1/2 w-28 h-16 hidden md:block" aria-hidden="true"></div>
 
-      <div className="relative max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-10 overflow-hidden"
-        >
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-sm font-medium text-accent uppercase tracking-[0.24em] shadow-sm shadow-accent/10">
-            {t('hero.available')}
-          </div>
+      <div className="relative max-w-7xl mx-auto">
+        <div className="hidden lg:flex absolute right-0 -top-2 items-start gap-3 text-right">
+          <p className="max-w-[11rem] text-[11px] font-bold uppercase leading-snug tracking-[0.16em] text-text">{t('hero.tagline')}</p>
+          <ArrowUpRight size={36} strokeWidth={2.25} className="text-accent -mt-1" aria-hidden="true" />
+        </div>
 
-          <div className="max-w-xl md:max-w-lg space-y-8">
-            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight text-text clamp-text break-words">
-              {t('hero.title')} <br />
-              <span className="text-gradient">{t('hero.subtitle')}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="lg:col-span-7 min-w-0"
+          >
+            <h1 className="font-display uppercase leading-[0.92] tracking-tight text-[clamp(3.25rem,10vw,8.5rem)] break-words">
+              <span className="block text-accent">{t('hero.word1')}</span>
+              <span className="block text-text">{t('hero.word2')}</span>
             </h1>
-            <p className="text-text/80 text-base sm:text-lg md:text-base lg:text-lg leading-relaxed max-w-md md:max-w-sm clamp-desc">
-              {t('hero.desc', { name: 'Valens Mugisha' })}
-            </p>
-          </div>
 
-          <div className="flex flex-wrap gap-5">
-            <a
-              href="#projects"
-              className="inline-flex items-center justify-center rounded-2xl bg-accent px-10 py-4 text-sm font-bold text-background transition-all duration-200 hover:bg-accent/90 shadow-lg shadow-accent/20"
-            >
-              {t('hero.viewWork')}
-              <ArrowRight size={20} className="ml-3 transition-transform duration-200 group-hover:translate-x-1" />
-            </a>
-            <a
-              href="/cv/Valens_Mugisha_CV.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center rounded-2xl border border-cards/20 bg-cards/80 px-10 py-4 text-sm font-bold text-text transition-all duration-200 hover:border-accent/50 hover:bg-cards/90 shadow-lg shadow-black/20 backdrop-blur-sm"
-            >
-              <Download size={20} className="text-accent mr-3" />
-              {t('hero.downloadCV')}
-            </a>
-          </div>
+            <div className="w-24 h-1 bg-accent my-7 sm:my-9" aria-hidden="true"></div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div className="rounded-3xl border border-cards/20 bg-cards/90 p-6 shadow-xl shadow-black/20 backdrop-blur-sm">
-              <p className="text-sm font-mono uppercase tracking-[0.2em] text-text/50 mb-3">Experience</p>
-              <p className="text-3xl font-bold text-text">2+ yrs</p>
-              <p className="mt-3 text-text/70 text-sm leading-relaxed">Building scalable web apps and data-driven solutions with clean architecture.</p>
+            <p className="text-2xl sm:text-3xl font-semibold text-text">{t('hero.hello', { name: 'Valens' })}</p>
+            <p className="mt-3 max-w-lg text-base sm:text-lg leading-relaxed text-muted">{t('hero.desc')}</p>
+
+            <div className="mt-8 flex flex-wrap gap-3 sm:gap-4">
+              <a
+                href="#projects"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-bold text-white hover:bg-accent-strong transition-colors"
+              >
+                {t('hero.viewWork')}
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </a>
+              <a
+                href="/cv/Valens_Mugisha_CV.pdf"
+                download="Valens_Mugisha_CV.pdf"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-text px-7 py-3 text-sm font-bold text-text hover:bg-text hover:text-background transition-colors"
+              >
+                <Download size={18} />
+                {t('hero.downloadCV')}
+              </a>
             </div>
-            <div className="rounded-3xl border border-cards/20 bg-cards/90 p-6 shadow-xl shadow-black/20 backdrop-blur-sm">
-              <p className="text-sm font-mono uppercase tracking-[0.2em] text-text/50 mb-3">Focus</p>
-              <p className="text-3xl font-bold text-text">Modern UI</p>
-              <p className="mt-3 text-text/70 text-sm leading-relaxed">Creating polished, high-contrast experiences inspired by professional design systems.</p>
-            </div>
-          </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="relative hidden md:block"
-        >
-          <div className="absolute -top-12 -right-8 w-44 h-44 rounded-full bg-accent/10 blur-3xl"></div>
-          <div className="absolute -bottom-12 left-4 w-56 h-56 rounded-full bg-accent/10 blur-3xl"></div>
+            <dl className="mt-10 sm:mt-12 grid grid-cols-3 sm:flex">
+              {stats.map((s, i) => (
+                <div key={s.label} className={`pr-3 sm:pr-10 ${i > 0 ? 'pl-3 sm:pl-10 border-l border-line' : ''}`}>
+                  <dt className="sr-only">{s.label}</dt>
+                  <dd className="font-display text-4xl sm:text-5xl leading-none text-accent">{s.value}</dd>
+                  <dd className="mt-2 max-w-[7rem] text-[11px] font-bold uppercase leading-tight tracking-[0.14em] text-text">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
+          </motion.div>
 
-          <div className="relative rounded-[2.5rem] border border-cards/20 bg-cards/95 p-3 shadow-xl shadow-black/25 backdrop-blur-sm">
-            <div className="overflow-hidden rounded-[2.2rem] border border-cards/10">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+            className="lg:col-span-5 relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none"
+          >
+            {/* orange circle top-right, mint circle bottom-left — as in the reference */}
+            <div className="absolute -right-6 sm:-right-10 top-6 w-56 h-56 sm:w-72 sm:h-72 rounded-full bg-accent" aria-hidden="true"></div>
+            <div className="absolute -left-8 bottom-4 w-44 h-44 sm:w-56 sm:h-56 rounded-full bg-mint" aria-hidden="true"></div>
+            <div className="hatch absolute left-2 -bottom-4 w-20 h-12 opacity-80 hidden sm:block" aria-hidden="true"></div>
+
+            {/* Arch frame; multiply blends the photo's white backdrop into the frame colour */}
+            <div className="relative isolate mx-auto w-[82%] aspect-[4/5] overflow-hidden rounded-t-full rounded-b-3xl bg-[#d6ebe5] shadow-2xl shadow-navy/20">
               <img
                 src={profileImg}
                 alt="Valens Mugisha"
-                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover object-top mix-blend-multiply scale-110 origin-top"
               />
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
