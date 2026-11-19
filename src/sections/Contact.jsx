@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Code2 as Github, UserRound as Linkedin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +16,16 @@ const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '', _honey: '' });
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [feedback, setFeedback] = useState('');
+
+  // Hide the success note 2 seconds after it appears.
+  useEffect(() => {
+    if (status !== 'success') return undefined;
+    const timer = setTimeout(() => {
+      setStatus('idle');
+      setFeedback('');
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [status]);
 
   const mailtoHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`Portfolio message from ${form.name || 'a visitor'}`)}&body=${encodeURIComponent(
     `${form.message}\n\n— ${form.name}${form.email ? ` (${form.email})` : ''}`,
