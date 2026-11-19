@@ -55,8 +55,10 @@ const Navbar = ({ isDark, toggleTheme }) => {
     <nav className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? 'bg-background/85 backdrop-blur-md border-b border-line py-3' : 'bg-transparent py-5'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-6">
         <a href="#home" className="flex items-center gap-3 shrink-0" aria-label="Valens Mugisha, home">
-          <span className="grid place-items-center w-11 h-11 rounded-full bg-navy text-white font-black text-base tracking-tight leading-none">
-            VM<span className="text-accent">.</span>
+          <span className="flex items-center justify-center shrink-0 w-11 h-11 rounded-full bg-navy text-white text-[15px] font-extrabold tracking-tight leading-none ring-2 ring-accent/0 hover:ring-accent transition">
+            <span className="flex items-baseline">
+              VM<span className="text-accent text-lg leading-none">.</span>
+            </span>
           </span>
           <span className="hidden sm:block text-[11px] font-bold uppercase leading-tight tracking-[0.14em] text-text">
             {t('nav.role1')}<br />{t('nav.role2')}
