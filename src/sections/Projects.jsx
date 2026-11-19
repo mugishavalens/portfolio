@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import SectionHeader from '../components/SectionHeader';
 import goRwandaImg from '../assets/projects/go-rwanda.jpg';
 import cyberguardImg from '../assets/projects/cyberguard.jpg';
+import civicguardImg from '../assets/projects/civicguard.jpg';
+import edustatImg from '../assets/projects/edustat.jpg';
 import bistroImg from '../assets/projects/bistro.jpg';
 import simbaImg from '../assets/projects/simba.jpg';
 import kimchiImg from '../assets/projects/kimchi.jpg';
@@ -26,6 +28,22 @@ const liveProjects = [
     url: 'https://cyber-gurad.netlify.app/',
     image: cyberguardImg,
     tech: ['React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AI detection'],
+  },
+  {
+    key: 'civicguard',
+    title: 'CivicGuard Kigali',
+    kind: 'Smart city platform',
+    url: 'https://civicguard-kigali-smart-city.vercel.app/',
+    image: civicguardImg,
+    tech: ['React', 'Node.js', 'Real-time', 'i18n'],
+  },
+  {
+    key: 'edustat',
+    title: 'EduStat Rwanda',
+    kind: 'Education analytics',
+    url: 'https://edustat.vercel.app/',
+    image: edustatImg,
+    tech: ['Python', 'Django', 'Big data', 'Analytics'],
   },
   {
     key: 'bistro',
@@ -116,7 +134,8 @@ const ProjectCard = ({ index, project, large }) => {
 
 const Projects = () => {
   const { t } = useTranslation();
-  const [first, second, ...rest] = liveProjects;
+  const featured = liveProjects.slice(0, 4);
+  const rest = liveProjects.slice(4);
 
   return (
     <section id="projects" className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
@@ -124,13 +143,14 @@ const Projects = () => {
         <SectionHeader title={t('projects.title')} aside={t('projects.count', { count: liveProjects.length })} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-          <ProjectCard index={0} project={first} large />
-          <ProjectCard index={1} project={second} large />
+          {featured.map((p, i) => (
+            <ProjectCard key={p.key} index={i} project={p} large />
+          ))}
         </div>
 
         <div className="mt-6 lg:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {rest.map((p, i) => (
-            <ProjectCard key={p.key} index={i + 2} project={p} />
+            <ProjectCard key={p.key} index={i + featured.length} project={p} />
           ))}
         </div>
 

@@ -9,7 +9,7 @@ const Hero = () => {
 
   const stats = [
     { value: '2+', label: t('hero.years') },
-    { value: '5', label: t('hero.projects') },
+    { value: '7', label: t('hero.projects') },
     { value: '4', label: t('hero.langs') },
   ];
 
