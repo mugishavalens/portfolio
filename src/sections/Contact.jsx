@@ -4,9 +4,8 @@ import { Mail, MapPin, Code2 as Github, UserRound as Linkedin, Send, CheckCircle
 import { useTranslation } from 'react-i18next';
 
 const EMAIL = 'valensmugisha5@gmail.com';
-// FormSubmit relays the form to EMAIL. The first submission sends a one-time
-// "Activate Form" email to that inbox; messages are delivered after it is clicked.
-const ENDPOINT = `https://formsubmit.co/ajax/${EMAIL}`;
+// Netlify Function (netlify/functions/contact.mjs) that sends the message via Resend.
+const ENDPOINT = '/api/contact';
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const inputClass =
@@ -54,18 +53,9 @@ const Contact = () => {
       const res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-          _replyto: email,
-          _subject: `New portfolio message from ${name}`,
-          _template: 'table',
-          _captcha: 'false',
-        }),
+        body: JSON.stringify({ name, email, message, _honey: form._honey }),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok || String(data.success) !== 'true') throw new Error(data.message || `HTTP ${res.status}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus('success');
       setFeedback(t('contact.success'));
       setForm({ name: '', email: '', message: '', _honey: '' });
